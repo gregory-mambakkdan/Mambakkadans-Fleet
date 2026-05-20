@@ -170,8 +170,22 @@
 
 <script>
   // ============================================
-  // EDIT ONLY THIS SECTION WHEN DATES CHANGE
-  // Format: 'YYYY-MM-DD'
+  // MAMBAKKADANS FLEET COMPLIANCE BOARD
+  // ============================================
+  //
+  // HOW TO UPDATE DATES WHEN A DOCUMENT IS RENEWED:
+  //
+  // 1. Find the vehicle by its number below
+  // 2. Change the relevant date in YYYY-MM-DD format
+  //    Example: 15th August 2026 → '2026-08-15'
+  // 3. Save the file and re-upload to Netlify
+  //
+  // COLOR LOGIC (automatic, no action needed):
+  //   GREEN  → More than 60 days remaining
+  //   AMBER  → 31 to 60 days remaining
+  //   RED    → 30 days or less, or already expired
+  //
+  // DO NOT edit anything outside this section.
   // ============================================
   const vehicles = [
     {
