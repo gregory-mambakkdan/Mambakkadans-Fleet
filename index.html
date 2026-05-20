@@ -3,24 +3,20 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Mambakkadans – Vehicle Board</title>
+<title>Mambakkadans – Fleet Compliance Board</title>
 <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@400;600;700;800&family=Barlow:wght@400;500;600&display=swap" rel="stylesheet">
 <style>
   :root {
     --blue: #1E3DA8;
-    --blue-dark: #162d7e;
     --amber: #F5A623;
     --green: #22c55e;
     --yellow: #eab308;
     --red: #ef4444;
     --gray-bg: #f1f4f9;
     --card-bg: #ffffff;
-    --text: #1a1a2e;
     --muted: #6b7280;
   }
-
   * { margin: 0; padding: 0; box-sizing: border-box; }
-
   body {
     background: var(--gray-bg);
     font-family: 'Barlow', sans-serif;
@@ -30,7 +26,6 @@
     justify-content: center;
     padding: 32px 16px;
   }
-
   .board {
     background: var(--card-bg);
     border-radius: 16px;
@@ -39,8 +34,6 @@
     max-width: 560px;
     overflow: hidden;
   }
-
-  /* Header */
   .header {
     background: var(--blue);
     padding: 28px 32px 22px;
@@ -82,8 +75,6 @@
     text-transform: uppercase;
     margin-top: 14px;
   }
-
-  /* Legend */
   .legend {
     display: flex;
     gap: 16px;
@@ -102,24 +93,12 @@
     text-transform: uppercase;
     letter-spacing: 0.05em;
   }
-  .dot {
-    width: 9px; height: 9px;
-    border-radius: 50%;
-    display: inline-block;
-  }
+  .dot { width: 9px; height: 9px; border-radius: 50%; display: inline-block; }
   .dot.green { background: var(--green); }
   .dot.yellow { background: var(--yellow); }
   .dot.red { background: var(--red); }
-
-  /* Vehicle Cards */
   .vehicles { padding: 20px 24px 28px; display: flex; flex-direction: column; gap: 16px; }
-
-  .vehicle-card {
-    border: 1.5px solid #e5eaf5;
-    border-radius: 12px;
-    overflow: hidden;
-  }
-
+  .vehicle-card { border: 1.5px solid #e5eaf5; border-radius: 12px; overflow: hidden; }
   .vehicle-header {
     background: var(--blue);
     padding: 11px 16px;
@@ -134,41 +113,11 @@
     color: #fff;
     letter-spacing: 0.06em;
   }
-  .vehicle-model {
-    font-size: 0.78rem;
-    color: rgba(255,255,255,0.65);
-    font-weight: 500;
-    letter-spacing: 0.03em;
-  }
-  .vehicle-driver {
-    font-size: 0.72rem;
-    color: var(--amber);
-    font-weight: 600;
-    letter-spacing: 0.05em;
-    margin-top: 2px;
-  }
-
-  .compliance-grid {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 1px;
-    background: #e5eaf5;
-  }
-
-  .compliance-item {
-    background: var(--card-bg);
-    padding: 12px 14px;
-    display: flex;
-    flex-direction: column;
-    gap: 4px;
-  }
-  .compliance-label {
-    font-size: 0.67rem;
-    font-weight: 700;
-    text-transform: uppercase;
-    letter-spacing: 0.1em;
-    color: var(--muted);
-  }
+  .vehicle-model { font-size: 0.78rem; color: rgba(255,255,255,0.65); font-weight: 500; }
+  .vehicle-driver { font-size: 0.72rem; color: var(--amber); font-weight: 600; margin-top: 2px; }
+  .compliance-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1px; background: #e5eaf5; }
+  .compliance-item { background: var(--card-bg); padding: 12px 14px; display: flex; flex-direction: column; gap: 4px; }
+  .compliance-label { font-size: 0.67rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em; color: var(--muted); }
   .compliance-date {
     font-family: 'Barlow Condensed', sans-serif;
     font-size: 1.05rem;
@@ -180,8 +129,6 @@
   .compliance-date.green { color: #15803d; }
   .compliance-date.yellow { color: #92400e; }
   .compliance-date.red { color: #b91c1c; }
-  .compliance-date.empty { color: #9ca3af; font-style: italic; font-size: 0.85rem; font-weight: 500; }
-
   .status-badge {
     font-size: 0.6rem;
     font-weight: 700;
@@ -189,12 +136,11 @@
     border-radius: 4px;
     text-transform: uppercase;
     letter-spacing: 0.05em;
+    white-space: nowrap;
   }
   .status-badge.green { background: #dcfce7; color: #15803d; }
   .status-badge.yellow { background: #fef9c3; color: #92400e; }
   .status-badge.red { background: #fee2e2; color: #b91c1c; }
-
-  /* Footer */
   .footer {
     text-align: center;
     padding: 12px;
@@ -207,115 +153,122 @@
 </style>
 </head>
 <body>
-
 <div class="board">
-
   <div class="header">
     <div class="brand-name">MAMBAKKADANS<span>.</span></div>
     <div class="brand-sub">Steels &amp; Cements</div>
     <div class="board-title">Fleet Compliance Board</div>
   </div>
-
   <div class="legend">
     <div class="legend-item"><span class="dot green"></span> Valid</div>
     <div class="legend-item"><span class="dot yellow"></span> Expiring &lt;60 days</div>
     <div class="legend-item"><span class="dot red"></span> Expired / &lt;30 days</div>
   </div>
-
-  <div class="vehicles">
-
-    <!-- Vehicle 1 -->
-    <div class="vehicle-card">
-      <div class="vehicle-header">
-        <div class="vehicle-number">KL40L2819</div>
-        <div>
-          <div class="vehicle-model">Bharath Benz</div>
-          <div class="vehicle-driver">Driver: Ayyapan</div>
-        </div>
-      </div>
-      <div class="compliance-grid">
-        <div class="compliance-item">
-          <span class="compliance-label">Insurance</span>
-          <span class="compliance-date empty">— Add date</span>
-        </div>
-        <div class="compliance-item">
-          <span class="compliance-label">PUC / Pollution</span>
-          <span class="compliance-date empty">— Add date</span>
-        </div>
-        <div class="compliance-item">
-          <span class="compliance-label">Fitness</span>
-          <span class="compliance-date empty">— Add date</span>
-        </div>
-        <div class="compliance-item">
-          <span class="compliance-label">Road Tax</span>
-          <span class="compliance-date empty">— Add date</span>
-        </div>
-      </div>
-    </div>
-
-    <!-- Vehicle 2 -->
-    <div class="vehicle-card">
-      <div class="vehicle-header">
-        <div class="vehicle-number">KL40R3276</div>
-        <div>
-          <div class="vehicle-model">Mahindra Loadking</div>
-          <div class="vehicle-driver">Driver: Ayyapan</div>
-        </div>
-      </div>
-      <div class="compliance-grid">
-        <div class="compliance-item">
-          <span class="compliance-label">Insurance</span>
-          <span class="compliance-date empty">— Add date</span>
-        </div>
-        <div class="compliance-item">
-          <span class="compliance-label">PUC / Pollution</span>
-          <span class="compliance-date empty">— Add date</span>
-        </div>
-        <div class="compliance-item">
-          <span class="compliance-label">Fitness</span>
-          <span class="compliance-date empty">— Add date</span>
-        </div>
-        <div class="compliance-item">
-          <span class="compliance-label">Road Tax</span>
-          <span class="compliance-date empty">— Add date</span>
-        </div>
-      </div>
-    </div>
-
-    <!-- Vehicle 3 -->
-    <div class="vehicle-card">
-      <div class="vehicle-header">
-        <div class="vehicle-number">KL40V0944</div>
-        <div>
-          <div class="vehicle-model">Mahindra Pik-Up</div>
-          <div class="vehicle-driver">Driver: Ayyapan</div>
-        </div>
-      </div>
-      <div class="compliance-grid">
-        <div class="compliance-item">
-          <span class="compliance-label">Insurance</span>
-          <span class="compliance-date empty">— Add date</span>
-        </div>
-        <div class="compliance-item">
-          <span class="compliance-label">PUC / Pollution</span>
-          <span class="compliance-date empty">— Add date</span>
-        </div>
-        <div class="compliance-item">
-          <span class="compliance-label">Fitness</span>
-          <span class="compliance-date empty">— Add date</span>
-        </div>
-        <div class="compliance-item">
-          <span class="compliance-label">Road Tax</span>
-          <span class="compliance-date empty">— Add date</span>
-        </div>
-      </div>
-    </div>
-
-  </div>
-
-  <div class="footer">Updated: May 2026 &nbsp;·&nbsp; Mambakkadans Steels &amp; Cements</div>
-
+  <div class="vehicles" id="vehicleContainer"></div>
+  <div class="footer" id="footer"></div>
 </div>
 
+<script>
+  // ============================================
+  // EDIT ONLY THIS SECTION WHEN DATES CHANGE
+  // Format: 'YYYY-MM-DD'
+  // ============================================
+  const vehicles = [
+    {
+      number: 'KL40L2819',
+      model: 'Bharath Benz',
+      driver: 'Ayyapan',
+      insurance: '2026-07-06',
+      puc:       '2026-09-16',
+      fitness:   '2026-09-08',
+      tax:       '2026-06-30',
+    },
+    {
+      number: 'KL40R3276',
+      model: 'Mahindra Loadking',
+      driver: 'Ayyapan',
+      insurance: '2026-05-21',
+      puc:       '2026-07-17',
+      fitness:   '2027-08-01',
+      tax:       '2025-12-31',
+    },
+    {
+      number: 'KL40V0944',
+      model: 'Mahindra Pik-Up',
+      driver: 'Ayyapan',
+      insurance: '2026-07-13',
+      puc:       '2026-08-15',
+      fitness:   '2027-07-27',
+      tax:       '2028-06-30',
+    },
+  ];
+  // ============================================
+
+  function getStatus(dateStr) {
+    const today = new Date();
+    today.setHours(0,0,0,0);
+    const expiry = new Date(dateStr);
+    const days = Math.round((expiry - today) / (1000 * 60 * 60 * 24));
+    const formatted = expiry.toLocaleDateString('en-GB', { day: '2-digit', month: 'short', year: 'numeric' });
+
+    let colorClass, badge;
+    if (days < 0) {
+      colorClass = 'red';
+      badge = `Expired ${Math.abs(days)}d ago`;
+    } else if (days <= 30) {
+      colorClass = 'red';
+      badge = days === 0 ? 'Today!' : days === 1 ? 'Tomorrow!' : `${days} days`;
+    } else if (days <= 60) {
+      colorClass = 'yellow';
+      badge = `${days} days`;
+    } else {
+      colorClass = 'green';
+      badge = 'OK';
+    }
+    return { formatted, colorClass, badge };
+  }
+
+  function renderVehicles() {
+    const container = document.getElementById('vehicleContainer');
+    const today = new Date();
+    document.getElementById('footer').textContent =
+      `Updated: ${today.toLocaleDateString('en-GB', { month: 'long', year: 'numeric' })} · Mambakkadans Steels & Cements`;
+
+    vehicles.forEach(v => {
+      const fields = [
+        { label: 'Insurance',     date: v.insurance },
+        { label: 'PUC / Pollution', date: v.puc },
+        { label: 'Fitness',       date: v.fitness },
+        { label: 'Road Tax',      date: v.tax },
+      ];
+
+      const gridHTML = fields.map(f => {
+        const { formatted, colorClass, badge } = getStatus(f.date);
+        return `
+          <div class="compliance-item">
+            <span class="compliance-label">${f.label}</span>
+            <span class="compliance-date ${colorClass}">
+              ${formatted}
+              <span class="status-badge ${colorClass}">${badge}</span>
+            </span>
+          </div>`;
+      }).join('');
+
+      container.innerHTML += `
+        <div class="vehicle-card">
+          <div class="vehicle-header">
+            <div class="vehicle-number">${v.number}</div>
+            <div>
+              <div class="vehicle-model">${v.model}</div>
+              <div class="vehicle-driver">Driver: ${v.driver}</div>
+            </div>
+          </div>
+          <div class="compliance-grid">${gridHTML}</div>
+        </div>`;
+    });
+  }
+
+  renderVehicles();
+</script>
 </body>
 </html>
