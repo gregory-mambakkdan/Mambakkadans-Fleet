@@ -1,0 +1,321 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Mambakkadans – Vehicle Board</title>
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@400;600;700;800&family=Barlow:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --blue: #1E3DA8;
+    --blue-dark: #162d7e;
+    --amber: #F5A623;
+    --green: #22c55e;
+    --yellow: #eab308;
+    --red: #ef4444;
+    --gray-bg: #f1f4f9;
+    --card-bg: #ffffff;
+    --text: #1a1a2e;
+    --muted: #6b7280;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    background: var(--gray-bg);
+    font-family: 'Barlow', sans-serif;
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 32px 16px;
+  }
+
+  .board {
+    background: var(--card-bg);
+    border-radius: 16px;
+    box-shadow: 0 8px 40px rgba(30,61,168,0.12), 0 2px 8px rgba(0,0,0,0.06);
+    width: 100%;
+    max-width: 560px;
+    overflow: hidden;
+  }
+
+  /* Header */
+  .header {
+    background: var(--blue);
+    padding: 28px 32px 22px;
+    text-align: center;
+    position: relative;
+  }
+  .header::after {
+    content: '';
+    display: block;
+    height: 3px;
+    background: var(--amber);
+    position: absolute;
+    bottom: 0; left: 0; right: 0;
+  }
+  .brand-name {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-weight: 800;
+    font-size: 2rem;
+    color: #fff;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+  }
+  .brand-name span { color: var(--amber); }
+  .brand-sub {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-weight: 400;
+    font-size: 0.78rem;
+    letter-spacing: 0.22em;
+    color: rgba(255,255,255,0.55);
+    text-transform: uppercase;
+    margin-top: 3px;
+  }
+  .board-title {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-weight: 700;
+    font-size: 1rem;
+    letter-spacing: 0.18em;
+    color: rgba(255,255,255,0.75);
+    text-transform: uppercase;
+    margin-top: 14px;
+  }
+
+  /* Legend */
+  .legend {
+    display: flex;
+    gap: 16px;
+    justify-content: center;
+    padding: 12px 32px;
+    background: #f8faff;
+    border-bottom: 1px solid #e5eaf5;
+  }
+  .legend-item {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    font-size: 0.72rem;
+    font-weight: 600;
+    color: var(--muted);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
+  .dot {
+    width: 9px; height: 9px;
+    border-radius: 50%;
+    display: inline-block;
+  }
+  .dot.green { background: var(--green); }
+  .dot.yellow { background: var(--yellow); }
+  .dot.red { background: var(--red); }
+
+  /* Vehicle Cards */
+  .vehicles { padding: 20px 24px 28px; display: flex; flex-direction: column; gap: 16px; }
+
+  .vehicle-card {
+    border: 1.5px solid #e5eaf5;
+    border-radius: 12px;
+    overflow: hidden;
+  }
+
+  .vehicle-header {
+    background: var(--blue);
+    padding: 11px 16px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  .vehicle-number {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-weight: 800;
+    font-size: 1.2rem;
+    color: #fff;
+    letter-spacing: 0.06em;
+  }
+  .vehicle-model {
+    font-size: 0.78rem;
+    color: rgba(255,255,255,0.65);
+    font-weight: 500;
+    letter-spacing: 0.03em;
+  }
+  .vehicle-driver {
+    font-size: 0.72rem;
+    color: var(--amber);
+    font-weight: 600;
+    letter-spacing: 0.05em;
+    margin-top: 2px;
+  }
+
+  .compliance-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1px;
+    background: #e5eaf5;
+  }
+
+  .compliance-item {
+    background: var(--card-bg);
+    padding: 12px 14px;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+  }
+  .compliance-label {
+    font-size: 0.67rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--muted);
+  }
+  .compliance-date {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 1.05rem;
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+  .compliance-date.green { color: #15803d; }
+  .compliance-date.yellow { color: #92400e; }
+  .compliance-date.red { color: #b91c1c; }
+  .compliance-date.empty { color: #9ca3af; font-style: italic; font-size: 0.85rem; font-weight: 500; }
+
+  .status-badge {
+    font-size: 0.6rem;
+    font-weight: 700;
+    padding: 2px 6px;
+    border-radius: 4px;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
+  .status-badge.green { background: #dcfce7; color: #15803d; }
+  .status-badge.yellow { background: #fef9c3; color: #92400e; }
+  .status-badge.red { background: #fee2e2; color: #b91c1c; }
+
+  /* Footer */
+  .footer {
+    text-align: center;
+    padding: 12px;
+    font-size: 0.68rem;
+    color: #b0bac9;
+    letter-spacing: 0.05em;
+    border-top: 1px solid #e5eaf5;
+    text-transform: uppercase;
+  }
+</style>
+</head>
+<body>
+
+<div class="board">
+
+  <div class="header">
+    <div class="brand-name">MAMBAKKADANS<span>.</span></div>
+    <div class="brand-sub">Steels &amp; Cements</div>
+    <div class="board-title">Fleet Compliance Board</div>
+  </div>
+
+  <div class="legend">
+    <div class="legend-item"><span class="dot green"></span> Valid</div>
+    <div class="legend-item"><span class="dot yellow"></span> Expiring &lt;60 days</div>
+    <div class="legend-item"><span class="dot red"></span> Expired / &lt;30 days</div>
+  </div>
+
+  <div class="vehicles">
+
+    <!-- Vehicle 1 -->
+    <div class="vehicle-card">
+      <div class="vehicle-header">
+        <div class="vehicle-number">KL40L2819</div>
+        <div>
+          <div class="vehicle-model">Bharath Benz</div>
+          <div class="vehicle-driver">Driver: Ayyapan</div>
+        </div>
+      </div>
+      <div class="compliance-grid">
+        <div class="compliance-item">
+          <span class="compliance-label">Insurance</span>
+          <span class="compliance-date empty">— Add date</span>
+        </div>
+        <div class="compliance-item">
+          <span class="compliance-label">PUC / Pollution</span>
+          <span class="compliance-date empty">— Add date</span>
+        </div>
+        <div class="compliance-item">
+          <span class="compliance-label">Fitness</span>
+          <span class="compliance-date empty">— Add date</span>
+        </div>
+        <div class="compliance-item">
+          <span class="compliance-label">Road Tax</span>
+          <span class="compliance-date empty">— Add date</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Vehicle 2 -->
+    <div class="vehicle-card">
+      <div class="vehicle-header">
+        <div class="vehicle-number">KL40R3276</div>
+        <div>
+          <div class="vehicle-model">Mahindra Loadking</div>
+          <div class="vehicle-driver">Driver: Ayyapan</div>
+        </div>
+      </div>
+      <div class="compliance-grid">
+        <div class="compliance-item">
+          <span class="compliance-label">Insurance</span>
+          <span class="compliance-date empty">— Add date</span>
+        </div>
+        <div class="compliance-item">
+          <span class="compliance-label">PUC / Pollution</span>
+          <span class="compliance-date empty">— Add date</span>
+        </div>
+        <div class="compliance-item">
+          <span class="compliance-label">Fitness</span>
+          <span class="compliance-date empty">— Add date</span>
+        </div>
+        <div class="compliance-item">
+          <span class="compliance-label">Road Tax</span>
+          <span class="compliance-date empty">— Add date</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Vehicle 3 -->
+    <div class="vehicle-card">
+      <div class="vehicle-header">
+        <div class="vehicle-number">KL40V0944</div>
+        <div>
+          <div class="vehicle-model">Mahindra Pik-Up</div>
+          <div class="vehicle-driver">Driver: Ayyapan</div>
+        </div>
+      </div>
+      <div class="compliance-grid">
+        <div class="compliance-item">
+          <span class="compliance-label">Insurance</span>
+          <span class="compliance-date empty">— Add date</span>
+        </div>
+        <div class="compliance-item">
+          <span class="compliance-label">PUC / Pollution</span>
+          <span class="compliance-date empty">— Add date</span>
+        </div>
+        <div class="compliance-item">
+          <span class="compliance-label">Fitness</span>
+          <span class="compliance-date empty">— Add date</span>
+        </div>
+        <div class="compliance-item">
+          <span class="compliance-label">Road Tax</span>
+          <span class="compliance-date empty">— Add date</span>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="footer">Updated: May 2026 &nbsp;·&nbsp; Mambakkadans Steels &amp; Cements</div>
+
+</div>
+
+</body>
+</html>
